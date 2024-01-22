@@ -2,7 +2,7 @@
 -- USE tk;
 
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
+    user_id SERIAL PRIMARY KEY,
     name VARCHAR(50),
     email VARCHAR(50) UNIQUE,
     clg_name VARCHAR(100),
@@ -27,7 +27,7 @@ CREATE TABLE events (
 );
 
 CREATE TABLE incharges (
-    id SERIAL PRIMARY KEY,
+    incharge_id SERIAL PRIMARY KEY,
     name VARCHAR(50),
     phone_no VARCHAR(20)
 );
@@ -37,11 +37,11 @@ CREATE TABLE incharge_event (
     event_id INTEGER,
     incharge_id INTEGER,
     FOREIGN KEY (event_id) REFERENCES events (event_id),
-    FOREIGN KEY (incharge_id) REFERENCES incharges (id)
+    FOREIGN KEY (incharge_id) REFERENCES incharges (incharge_id)
 );
 
 CREATE TABLE batch (
-    id SERIAL PRIMARY KEY,
+    batch_id SERIAL PRIMARY KEY,
     event_id INTEGER,
     venue TEXT,
     date DATE,
@@ -55,5 +55,5 @@ CREATE TABLE users_events (
     is_present BOOLEAN,
     paid BOOLEAN,
     FOREIGN KEY (event_id) REFERENCES events(event_id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );

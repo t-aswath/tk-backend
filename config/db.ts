@@ -11,6 +11,3 @@ export const pool = new Pool({
   password: process.env.DB_PASS,
   port: 5505,
 });
-
-console.log(process.env.DB_USER)
-console.log(process.env.DB_PASS)

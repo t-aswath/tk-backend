@@ -12,24 +12,22 @@ import {
 } from "../queries/userQueries.js";
 import { PostgresError } from "../interfaces/userInterface.js";
 import { NextFunction, Request, Response } from "express";
-
-const userDetails = [
-  "name",
-  "email",
-  "phone_no",
-  "clg_name",
-];
+import {
+  createUserValidator,
+  getUserCartValidator,
+  getUserValidator,
+} from "../validators/userValidators.js";
 
 const GetUserDetails = async (req: Request, res: Response) => {
-  const { user_email } = req.params;
+  const { email } = getUserValidator.parse(req.params);
   const client = await pool.connect();
-  const result = await client.query(getUserDetails, [user_email]);
+  const result = await client.query(getUserDetails, [email]);
   return res.send({ data: result.rows, "status": 200 });
 };
 
 const CreateUser = async (req: Request, res: Response) => {
-  const data = { ...req.body };
-  const sql_arr = userDetails.map((prop) => data[prop]);
+  const data = createUserValidator.parse(req.body);
+  const sql_arr = [data.name, data.email, data.phone_no, data.clg_name];
   const client = await pool.connect();
   await client.query(createUser, [...sql_arr])
     .then(() => {
@@ -39,14 +37,18 @@ const CreateUser = async (req: Request, res: Response) => {
 };
 
 const GetUserCart = async (req: Request, res: Response) => {
-  const { user_id } = req.params;
+  const { user_id } = getUserCartValidator.parse(req.params);
   const client = await pool.connect();
   const result = await client.query(getCart, [user_id]);
   return res.send({ "status": 200, data: result.rows });
 };
 
-const UpdateUserCart = async (req: Request, res: Response, next: NextFunction) => {
-  const { user_id } = req.params;
+const UpdateUserCart = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { user_id } = getUserCartValidator.parse(req.params);
   const { events_id } = req.body;
   const client = await pool.connect();
   try {
