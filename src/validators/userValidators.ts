@@ -15,8 +15,8 @@ const UserSchema = z
       })
       .email("Not a valid email"),
     clg_name: z.string()
-      .min(4, "Name should be atleast 4 characters")
-      .max(15, "Name should be atmost 15 characters"),
+      .min(4, "Collage Name should be atleast 4 characters")
+      .max(50, "Collage Name should be atmost 50 characters"),
     phone_no: z.string()
       .length(10, "Mobile number should be 10 digits long"),
   });

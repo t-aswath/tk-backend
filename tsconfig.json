@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["node"],
+    "types": ["node", "jest"],
     "module": "es2020",
     "moduleResolution": "node",
     "strict": true,
@@ -11,5 +11,5 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "./jest.config.ts"]
 }
