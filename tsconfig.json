@@ -4,7 +4,6 @@
     "module": "es2020",
     "moduleResolution": "node",
     "strict": true,
-    "baseUrl": "./",
     "target": "es2017",
     "sourceMap": true,
     "outDir": "dist",
